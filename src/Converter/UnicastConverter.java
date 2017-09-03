@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.xml.bind.*;
 
@@ -26,8 +27,8 @@ public class UnicastConverter extends Converter {
 
     private List<String> programs;
 
-    public UnicastConverter () {
-
+    public UnicastConverter (HashMap<String,Object> data) {
+        this.setTopologyData(data);
         variables = new ArrayList<>();
         variables.add(new Variable(BaseType.INT, CommonVariable.CONGESTION,"FALSE"));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_BUFFER_SIZE, getSensorMaxBufferSize()));
@@ -120,7 +121,7 @@ public class UnicastConverter extends Converter {
     @Override
     public void outputMinimizeProcessFile(String folderPath) {
         try {
-            FileWriter writer = new FileWriter(folderPath+"temp.txt");
+            FileWriter writer = new FileWriter(folderPath+"temp_minimize.txt");
             for (Variable v : variables) {
                 writer.write(v.toMinimizeString());
                 writer.write(System.lineSeparator());

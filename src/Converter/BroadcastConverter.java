@@ -30,7 +30,8 @@ public class BroadcastConverter extends Converter {
 
     private List<String> programs;
 
-    public BroadcastConverter () {
+    public BroadcastConverter (HashMap<String,Object> data) {
+        this.setTopologyData(data);
         variables = new ArrayList<>();
         variables.add(new Variable(BaseType.INT, CommonVariable.CONGESTION,"FALSE"));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_BUFFER_SIZE, getSensorMaxBufferSize()));
@@ -124,7 +125,7 @@ public class BroadcastConverter extends Converter {
     @Override
     public void outputMinimizeProcessFile(String folderPath) {
         try {
-            FileWriter writer = new FileWriter(folderPath+"temp.txt");
+            FileWriter writer = new FileWriter(folderPath+"temp_minize.txt");
             for (Variable v : variables) {
                 writer.write(v.toMinimizeString());
                 writer.write(System.lineSeparator());

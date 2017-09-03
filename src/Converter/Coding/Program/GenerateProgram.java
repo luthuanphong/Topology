@@ -18,7 +18,7 @@ public class GenerateProgram extends BaseProgram {
                 Function.createFunction("randomInt","1", CommonVariable.NUMBER_OF_PACkAGE));
 
         StringBuilder pro = new StringBuilder();
-        pro.append(id).append(" ").append("{").append(System.lineSeparator());
+        pro.append(this.id).append(" ").append("{").append(System.lineSeparator());
 
         //Create random number of package
         pro.append(random.toString()).append(System.lineSeparator());
@@ -49,6 +49,6 @@ public class GenerateProgram extends BaseProgram {
         //End of program
         pro.append("}").append(System.lineSeparator())
                 .append(System.lineSeparator());
-        return null;
+        return pro.toString();
     }
 }

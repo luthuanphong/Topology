@@ -10,6 +10,7 @@ public class ProcessProgram extends BaseProgram {
     public ProcessProgram (String id, Variable buffer, Variable queue) {
         this.buffer = buffer;
         this.queue = queue;
+        this.id = id;
     }
 
     @Override
@@ -19,7 +20,7 @@ public class ProcessProgram extends BaseProgram {
                 Function.createFunction("randomInt","1", CommonVariable.SENSOR_MAX_PROCESSINFG_RATE));
 
         StringBuilder pro = new StringBuilder();
-        pro.append(id).append(" ").append("{").append(System.lineSeparator());
+        pro.append(this.id).append(" ").append("{").append(System.lineSeparator());
         //Check condition
         pro.append(Condition.createIFCondition(
                 Operator.Compare(buffer.getVariableValue(),random.getVariableValue(),">="),
