@@ -7,9 +7,10 @@ public class ChannelReceiveProgram extends BaseProgram {
     private Variable channelBuffer;
     private Variable sensorQueue;
 
-    public ChannelReceiveProgram (Variable channelBuffer, Variable sensorQueue) {
+    public ChannelReceiveProgram (String id, Variable channelBuffer, Variable sensorQueue) {
         this.channelBuffer = channelBuffer;
         this.sensorQueue = sensorQueue;
+        this.id = id;
     }
 
     @Override
@@ -20,6 +21,7 @@ public class ChannelReceiveProgram extends BaseProgram {
                 Function.createFunction("randomInt","1", CommonVariable.CHANNEL_MAX_SENDING_RATE));
 
         StringBuilder pro = new StringBuilder();
+        pro.append(id).append(" ").append("{").append(System.lineSeparator());
         //Compare random and sensor queue
         pro.append(Condition.createIFCondition(
                 Operator.Compare(sensorQueue.getVariableValue(),random.getVariableValue(),">="),
@@ -41,6 +43,8 @@ public class ChannelReceiveProgram extends BaseProgram {
                 Operator.Compare(channelBuffer.getVariableName(),CommonVariable.CHANNEL_MAX_BUFFER_SIZE,">"),
                 Operator.AssignValue(CommonVariable.CONGESTION,"TRUE")));
         pro.append(System.lineSeparator());
+        pro.append("}").append(System.lineSeparator())
+                .append(System.lineSeparator());
         return pro.toString();
     }
 }

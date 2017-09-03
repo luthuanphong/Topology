@@ -114,6 +114,15 @@ public abstract class Converter {
     }
 
     /**
+     * Get number of package will send
+     * @return
+     */
+    public String getNumberOfPackage () {
+        return (String)
+                this.topologyData.getOrDefault(TopologyConstants.NUMBER_OF_PACKAGE,null);
+    }
+
+    /**
      * Get energy rule
      * @return return energy rule in map datastruct or null
      */

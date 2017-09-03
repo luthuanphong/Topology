@@ -6,8 +6,9 @@ public class GenerateProgram extends BaseProgram {
 
     private Variable buffer;
 
-    public GenerateProgram (Variable buffer) {
+    public GenerateProgram (String id, Variable buffer) {
         this.buffer = buffer;
+        this.id = id;
     }
 
     @Override

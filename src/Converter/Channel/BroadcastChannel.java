@@ -2,6 +2,9 @@ package Converter.Channel;
 
 import Converter.Coding.Common.BaseType;
 import Converter.Coding.Common.Variable;
+import Converter.Coding.Program.BaseProgram;
+import Converter.Coding.Program.ChannelReceiveProgram;
+import Converter.Coding.Program.ChannelSendProgram;
 import Converter.Sensor.BaseSensor;
 import Kwsn.Link;
 import Pnml.Pnml;
@@ -15,6 +18,8 @@ import java.util.List;
 
 public class BroadcastChannel extends BaseChannel {
 
+    private List<Variable> sensorBuffer;
+
     public BroadcastChannel (List<Link> links ,Link link, Pnml pnml, List<BaseSensor> sensors) {
         this.links = links;
         this.link = link;
@@ -22,6 +27,7 @@ public class BroadcastChannel extends BaseChannel {
         this.sensors = sensors;
         this.buffer = new Variable(BaseType.INT,"Channel_Buffer_"+this.link.id,"0");
         this.sensorTos = new ArrayList<>();
+        this.sensorBuffer = new ArrayList<>();
         this.Type = ChannelType.BROADCAST;
     }
 
@@ -85,6 +91,35 @@ public class BroadcastChannel extends BaseChannel {
         this.pnml.net.arcs.add(send_in);
     }
 
+    @Override
+    public String getRecvCode() {
+        BaseProgram program = new ChannelReceiveProgram(this.channelRecv.id, this.buffer, GetSensorFrom().queue);
+        return program.getCode();
+    }
+
+    @Override
+    public String getSendCode() {
+
+        BaseProgram program = new ChannelSendProgram(this.channelSend.id, this.buffer, this.sensorBuffer);
+        return program.getCode();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public BaseSensor GetSensorFrom () {
+        if (this.sensors != null) {
+            for (int i = 0 ; i < this.sensors.size() ; i++) {
+                if(sensors.get(i).getSensorName().equals(this.link.From)) {
+                    this.sensorFrom = sensors.get(i);
+                    return sensors.get(i);
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * @return
@@ -101,6 +136,7 @@ public class BroadcastChannel extends BaseChannel {
         return null;
     }
 
+
     /**
      *
      * @return
@@ -110,6 +146,7 @@ public class BroadcastChannel extends BaseChannel {
             for (int i = 0 ; i < this.sensors.size() ; i++) {
                 if(sensors.get(i).getSensorName().equals(to)) {
                     this.sensorTos.add(sensors.get(i));
+                    this.sensorBuffer.add(sensors.get(i).buffer);
                     return sensors.get(i).InputPlace.id;
                 }
             }

@@ -73,6 +73,7 @@ public class KwsnFileReader {
                 wsn.network.processes.get(0).sensors.listSensor);
         data.put(TopologyConstants.CHANNEL_LIST_KEY,
                 wsn.network.processes.get(0).links.listLink);
+        data.put(TopologyConstants.NUMBER_OF_PACKAGE,wsn.network.NumberOfPacket);
 
         HashMap<String ,String > energyRule = new HashMap<>();
         energyRule.put(EnergyConstants.PROCESSING_MESSAGE_ENERGY_CONSUMPTION_KEY , "5");

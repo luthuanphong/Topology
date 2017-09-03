@@ -7,7 +7,7 @@ public class ProcessProgram extends BaseProgram {
     private Variable buffer;
     private Variable queue;
 
-    public ProcessProgram (Variable buffer, Variable queue) {
+    public ProcessProgram (String id, Variable buffer, Variable queue) {
         this.buffer = buffer;
         this.queue = queue;
     }
@@ -19,7 +19,7 @@ public class ProcessProgram extends BaseProgram {
                 Function.createFunction("randomInt","1", CommonVariable.SENSOR_MAX_PROCESSINFG_RATE));
 
         StringBuilder pro = new StringBuilder();
-
+        pro.append(id).append(" ").append("{").append(System.lineSeparator());
         //Check condition
         pro.append(Condition.createIFCondition(
                 Operator.Compare(buffer.getVariableValue(),random.getVariableValue(),">="),
@@ -40,6 +40,8 @@ public class ProcessProgram extends BaseProgram {
                 Operator.Compare(queue.getVariableName(),CommonVariable.SENSOR_MAX_QUEUE_SIZE,">"),
                 Operator.AssignValue(CommonVariable.CONGESTION,"TRUE")));
         pro.append(System.lineSeparator());
+        pro.append("}").append(System.lineSeparator())
+                .append(System.lineSeparator());
         return pro.toString();
     }
 }

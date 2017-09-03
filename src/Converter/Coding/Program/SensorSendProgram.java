@@ -8,7 +8,7 @@ public class SensorSendProgram extends BaseProgram {
 
     private Variable queue;
 
-    public SensorSendProgram(Variable buffer, Variable queue) {
+    public SensorSendProgram(String id, Variable buffer, Variable queue) {
         this.buffer = buffer;
         this.queue = queue;
     }
@@ -20,6 +20,7 @@ public class SensorSendProgram extends BaseProgram {
                 Function.createFunction("randomInt","1", CommonVariable.SENSOR_MAX_PROCESSINFG_RATE));
 
         StringBuilder pro = new StringBuilder();
+        pro.append(id).append(" ").append("{").append(System.lineSeparator());
         //Create random variable
         pro.append(random.toString()).append(System.lineSeparator());
 
@@ -43,6 +44,8 @@ public class SensorSendProgram extends BaseProgram {
                 Operator.Compare(queue.getVariableName(),CommonVariable.SENSOR_MAX_QUEUE_SIZE,">"),
                 Operator.AssignValue(CommonVariable.CONGESTION,"TRUE")));
         pro.append(System.lineSeparator());
+        pro.append("}").append(System.lineSeparator())
+                .append(System.lineSeparator());
         return pro.toString();
     }
 }

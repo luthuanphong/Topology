@@ -10,4 +10,5 @@ public class TopologyConstants {
     public static final String SENSORS_MAX_QUEUE_SIZE_KEY = "7";
     public static final String CHANEL_MAX_BUFFER_SIZE_KEY = "8";
     public static final String ENERGY_RULES_LIST_KEY = "9";
+    public static final String NUMBER_OF_PACKAGE = "10";
 }

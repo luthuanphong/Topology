@@ -2,8 +2,12 @@ package Converter.Channel;
 
 import Converter.Coding.Common.BaseType;
 import Converter.Coding.Common.Variable;
+import Converter.Coding.Program.BaseProgram;
+import Converter.Coding.Program.ChannelReceiveProgram;
+import Converter.Coding.Program.ChannelSendProgram;
 import Converter.Sensor.BaseSensor;
 import Kwsn.Link;
+import Kwsn.Sensor;
 import Pnml.Pnml;
 import Pnml.Place;
 import Pnml.Transition;
@@ -76,6 +80,36 @@ public class UnicastChannel extends BaseChannel {
         this.pnml.net.arcs.add(send_out);
     }
 
+    @Override
+    public String getRecvCode() {
+        BaseProgram program = new ChannelReceiveProgram(channelRecv.id, this.buffer, GetSensorFrom().queue);
+        return program.getCode();
+    }
+
+    @Override
+    public String getSendCode() {
+        List<Variable> sensorBuffer = new ArrayList<>();
+        sensorBuffer.add(GetSensorTo().buffer);
+        BaseProgram program = new ChannelSendProgram(channelSend.id, this.buffer, sensorBuffer);
+        return program.getCode();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public BaseSensor GetSensorFrom () {
+        if (this.sensors != null) {
+            for (int i = 0 ; i < this.sensors.size() ; i++) {
+                if(sensors.get(i).getSensorName().equals(this.link.From)) {
+                    this.sensorFrom = sensors.get(i);
+                    return sensors.get(i);
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * @return
@@ -86,6 +120,22 @@ public class UnicastChannel extends BaseChannel {
                 if(sensors.get(i).getSensorName().equals(this.link.From)) {
                     this.sensorFrom = sensors.get(i);
                     return sensors.get(i).OutputPlace.id;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public BaseSensor GetSensorTo () {
+        if (this.sensors != null) {
+            for (int i = 0 ; i < this.sensors.size() ; i++) {
+                if(sensors.get(i).getSensorName().equals(this.link.To)) {
+                    sensorTos.add(sensors.get(i));
+                    return sensors.get(i);
                 }
             }
         }

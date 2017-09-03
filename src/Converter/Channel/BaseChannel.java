@@ -63,4 +63,16 @@ public abstract class BaseChannel {
      *
      */
     public abstract void ConvertToPnml();
+
+    /**
+     *
+     * @return
+     */
+    public abstract String getRecvCode ();
+
+    /**
+     *
+     * @return
+     */
+    public abstract String getSendCode ();
 }

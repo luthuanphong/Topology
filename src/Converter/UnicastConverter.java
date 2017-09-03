@@ -2,19 +2,45 @@ package Converter;
 
 import Converter.Channel.BaseChannel;
 import Converter.Channel.UnicastChannel;
+import Converter.Coding.Common.BaseType;
+import Converter.Coding.Common.CommonVariable;
+import Converter.Coding.Common.Variable;
+import Converter.Coding.Program.*;
 import Converter.Sensor.BaseSensor;
 import Converter.Sensor.SensorFactory;
+import Converter.Sensor.SensorType;
 import Kwsn.Link;
 import Kwsn.Sensor;
 import Pnml.Pnml;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.*;
 
 public class UnicastConverter extends Converter {
 
+    private List<Variable> variables;
+
+    private List<String> programs;
+
+    public UnicastConverter () {
+
+        variables = new ArrayList<>();
+        variables.add(new Variable(BaseType.INT, CommonVariable.CONGESTION,"FALSE"));
+        variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_BUFFER_SIZE, getSensorMaxBufferSize()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_QUEUE_SIZE, getSensorMaxQueueSize()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_PROCESSINFG_RATE, getSensorMaxProcessingRate()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_SENDING_RATE, getSensorMaxSendingRate()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.CHANNEL_MAX_BUFFER_SIZE, getChannelMaxBufferSize()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.CHANNEL_MAX_SENDING_RATE, getChannelMaxSendingRate()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.NUMBER_OF_PACkAGE, getNumberOfPackage()));
+
+        programs = new ArrayList<>();
+        programs.add(MainProgram.getCode());
+    }
 
     @Override
     public void outputPnmlFile(String folderPath) {
@@ -30,6 +56,26 @@ public class UnicastConverter extends Converter {
                 BaseSensor sensor = sensorFactory.getSensor(pnml,sensors.get(i));
                 sensor.convertToPnml();
                 baseSensors.add(sensor);
+                variables.add(sensor.buffer);
+                variables.add(sensor.queue);
+                if (sensor.Type == SensorType.SOURCE) {
+
+                    BaseProgram genProgram = new GenerateProgram(sensor.Generate.id,sensor.buffer);
+                    BaseProgram sendProgram = new SensorSendProgram(sensor.Send.id,sensor.buffer,sensor.queue);
+                    programs.add(genProgram.getCode());
+                    programs.add(sendProgram.getCode());
+
+                } else if (sensor.Type == SensorType.INTERMEDIATE) {
+
+                    BaseProgram sendProgram = new SensorSendProgram(sensor.Send.id,sensor.buffer,sensor.queue);
+                    programs.add(sendProgram.getCode());
+
+                } else if (sensor.Type == SensorType.SINk) {
+
+                    BaseProgram processProgram = new ProcessProgram(sensor.Process.id,sensor.buffer,sensor.queue);
+                    programs.add(processProgram.getCode());
+
+                }
             }
         }
 
@@ -37,6 +83,9 @@ public class UnicastConverter extends Converter {
             for ( int i = 0 ; i < links.size() ; i++) {
                 BaseChannel channel = new UnicastChannel(links.get(i),pnml,baseSensors);
                 channel.ConvertToPnml();
+                variables.add(channel.buffer);
+                programs.add(channel.getRecvCode());
+                programs.add(channel.getSendCode());
             }
         }
 
@@ -52,10 +101,37 @@ public class UnicastConverter extends Converter {
     @Override
     public void outputProcessFile(String folderPath) {
 
+        try {
+            FileWriter writer = new FileWriter(folderPath+"temp.txt");
+            for (Variable v : variables) {
+                writer.write(v.toString());
+                writer.write(System.lineSeparator());
+            }
+            for (String s : programs) {
+                writer.write(s);
+                writer.write(System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void outputMinimizeProcessFile(String folderPath) {
-
+        try {
+            FileWriter writer = new FileWriter(folderPath+"temp.txt");
+            for (Variable v : variables) {
+                writer.write(v.toMinimizeString());
+                writer.write(System.lineSeparator());
+            }
+            for (String s : programs) {
+                writer.write(s);
+                writer.write(System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

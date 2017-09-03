@@ -50,4 +50,19 @@ public class Variable {
                 return "";
         }
     }
+
+    public String toMinimizeString () {
+        switch (type) {
+            case INT:
+                return "int "+this.variableName+" = "+(this.variableValue.equals("0") ? this.variableValue : "1")+";";
+            case FLOAT:
+                return "float "+this.variableName+" = "+(this.variableValue.equals("0") ? this.variableValue : "1")+";";
+            case STRING:
+                return "String "+this.variableName+" = "+(this.variableValue.equals("0") ? this.variableValue : "1")+";";
+            case BOOLEAN:
+                return "boolean "+this.variableName+" = "+(this.variableValue.equals("0") ? this.variableValue : "1")+";";
+            default:
+                return "";
+        }
+    }
 }
