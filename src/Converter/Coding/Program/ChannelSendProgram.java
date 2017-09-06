@@ -1,6 +1,8 @@
 package Converter.Coding.Program;
 
+import Converter.Channel.BaseChannel;
 import Converter.Coding.Common.*;
+import Converter.Sensor.BaseSensor;
 
 import java.util.List;
 
@@ -9,8 +11,8 @@ public class ChannelSendProgram extends BaseProgram {
     private Variable channelBuffer;
     private List<Variable> sensorBuffer;
 
-    public ChannelSendProgram (String id, Variable channelBuffer, List<Variable> sensorBuffer) {
-        this.channelBuffer = channelBuffer;
+    public ChannelSendProgram (String id, BaseChannel channel, List<Variable> sensorBuffer) {
+        this.channelBuffer = channel.buffer;
         this.sensorBuffer = sensorBuffer;
         this.id = id;
     }
@@ -24,6 +26,7 @@ public class ChannelSendProgram extends BaseProgram {
 
         StringBuilder pro = new StringBuilder();
         pro.append(id).append(" ").append("{").append(System.lineSeparator());
+        pro.append(random.toString()).append(System.lineSeparator());
         //Decrease channel buffer
         //if channel buffer larger than random number
         pro.append(Condition.createIFCondition(
@@ -46,7 +49,7 @@ public class ChannelSendProgram extends BaseProgram {
             //Check condition
             pro.append(Condition.createIFCondition(
                     Operator.Compare(v.getVariableName(),CommonVariable.SENSOR_MAX_BUFFER_SIZE,">"),
-                    Operator.AssignValue(CommonVariable.CONGESTION,"TRUE")));
+                    Operator.AssignValue(CommonVariable.CONGESTION,"true")));
             pro.append(System.lineSeparator());
         }
         pro.append("}").append(System.lineSeparator())

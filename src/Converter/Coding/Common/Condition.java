@@ -5,7 +5,7 @@ public class Condition {
     public static String createIFCondition (String condition, String command) {
         StringBuilder cond = new StringBuilder();
         cond.append("if (").append(condition).append(") {").append(System.lineSeparator())
-                .append(command).append(";").append(System.lineSeparator())
+                .append(command).append(System.lineSeparator())
                 .append("}");
         return cond.toString();
     }

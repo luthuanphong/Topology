@@ -30,7 +30,7 @@ public class UnicastConverter extends Converter {
     public UnicastConverter (HashMap<String,Object> data) {
         this.setTopologyData(data);
         variables = new ArrayList<>();
-        variables.add(new Variable(BaseType.INT, CommonVariable.CONGESTION,"FALSE"));
+        variables.add(new Variable(BaseType.INT, CommonVariable.CONGESTION,"false"));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_BUFFER_SIZE, getSensorMaxBufferSize()));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_QUEUE_SIZE, getSensorMaxQueueSize()));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_PROCESSINFG_RATE, getSensorMaxProcessingRate()));
@@ -61,19 +61,19 @@ public class UnicastConverter extends Converter {
                 variables.add(sensor.queue);
                 if (sensor.Type == SensorType.SOURCE) {
 
-                    BaseProgram genProgram = new GenerateProgram(sensor.Generate.id,sensor.buffer);
-                    BaseProgram sendProgram = new SensorSendProgram(sensor.Send.id,sensor.buffer,sensor.queue);
+                    BaseProgram genProgram = new GenerateProgram(sensor.Generate.id,sensor);
+                    BaseProgram sendProgram = new SensorSendProgram(sensor.Send.id,sensor);
                     programs.add(genProgram.getCode());
                     programs.add(sendProgram.getCode());
 
                 } else if (sensor.Type == SensorType.INTERMEDIATE) {
 
-                    BaseProgram sendProgram = new SensorSendProgram(sensor.Send.id,sensor.buffer,sensor.queue);
+                    BaseProgram sendProgram = new SensorSendProgram(sensor.Send.id,sensor);
                     programs.add(sendProgram.getCode());
 
                 } else if (sensor.Type == SensorType.SINk) {
 
-                    BaseProgram processProgram = new ProcessProgram(sensor.Process.id,sensor.buffer,sensor.queue);
+                    BaseProgram processProgram = new ProcessProgram(sensor.Process.id,sensor);
                     programs.add(processProgram.getCode());
 
                 }

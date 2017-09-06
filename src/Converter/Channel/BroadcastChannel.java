@@ -93,14 +93,14 @@ public class BroadcastChannel extends BaseChannel {
 
     @Override
     public String getRecvCode() {
-        BaseProgram program = new ChannelReceiveProgram(this.channelRecv.id, this.buffer, GetSensorFrom().queue);
+        BaseProgram program = new ChannelReceiveProgram(this.channelRecv.id, this, GetSensorFrom());
         return program.getCode();
     }
 
     @Override
     public String getSendCode() {
 
-        BaseProgram program = new ChannelSendProgram(this.channelSend.id, this.buffer, this.sensorBuffer);
+        BaseProgram program = new ChannelSendProgram(this.channelSend.id, this, this.sensorBuffer);
         return program.getCode();
     }
 

@@ -1,6 +1,7 @@
 package Converter.Coding.Program;
 
 import Converter.Coding.Common.*;
+import Converter.Sensor.BaseSensor;
 
 public class SensorSendProgram extends BaseProgram {
 
@@ -8,9 +9,9 @@ public class SensorSendProgram extends BaseProgram {
 
     private Variable queue;
 
-    public SensorSendProgram(String id, Variable buffer, Variable queue) {
-        this.buffer = buffer;
-        this.queue = queue;
+    public SensorSendProgram(String id, BaseSensor sensor) {
+        this.buffer = sensor.buffer;
+        this.queue = sensor.queue;
         this.id = id;
     }
 
@@ -43,7 +44,7 @@ public class SensorSendProgram extends BaseProgram {
         //Check congestion
         pro.append(Condition.createIFCondition(
                 Operator.Compare(queue.getVariableName(),CommonVariable.SENSOR_MAX_QUEUE_SIZE,">"),
-                Operator.AssignValue(CommonVariable.CONGESTION,"TRUE")));
+                Operator.AssignValue(CommonVariable.CONGESTION,"true")));
         pro.append(System.lineSeparator());
         pro.append("}").append(System.lineSeparator())
                 .append(System.lineSeparator());

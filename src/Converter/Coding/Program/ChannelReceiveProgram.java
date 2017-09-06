@@ -1,15 +1,17 @@
 package Converter.Coding.Program;
 
+import Converter.Channel.BaseChannel;
 import Converter.Coding.Common.*;
+import Converter.Sensor.BaseSensor;
 
 public class ChannelReceiveProgram extends BaseProgram {
 
     private Variable channelBuffer;
     private Variable sensorQueue;
 
-    public ChannelReceiveProgram (String id, Variable channelBuffer, Variable sensorQueue) {
-        this.channelBuffer = channelBuffer;
-        this.sensorQueue = sensorQueue;
+    public ChannelReceiveProgram (String id, BaseChannel channel, BaseSensor sensor) {
+        this.channelBuffer = channel.buffer;
+        this.sensorQueue = sensor.queue;
         this.id = id;
     }
 
@@ -22,6 +24,7 @@ public class ChannelReceiveProgram extends BaseProgram {
 
         StringBuilder pro = new StringBuilder();
         pro.append(id).append(" ").append("{").append(System.lineSeparator());
+        pro.append(random.toString()).append(System.lineSeparator());
         //Compare random and sensor queue
         pro.append(Condition.createIFCondition(
                 Operator.Compare(sensorQueue.getVariableValue(),random.getVariableValue(),">="),
@@ -41,7 +44,7 @@ public class ChannelReceiveProgram extends BaseProgram {
         //Check congestion
         pro.append(Condition.createIFCondition(
                 Operator.Compare(channelBuffer.getVariableName(),CommonVariable.CHANNEL_MAX_BUFFER_SIZE,">"),
-                Operator.AssignValue(CommonVariable.CONGESTION,"TRUE")));
+                Operator.AssignValue(CommonVariable.CONGESTION,"true")));
         pro.append(System.lineSeparator());
         pro.append("}").append(System.lineSeparator())
                 .append(System.lineSeparator());

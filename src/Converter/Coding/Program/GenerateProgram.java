@@ -1,13 +1,14 @@
 package Converter.Coding.Program;
 
 import Converter.Coding.Common.*;
+import Converter.Sensor.BaseSensor;
 
 public class GenerateProgram extends BaseProgram {
 
     private Variable buffer;
 
-    public GenerateProgram (String id, Variable buffer) {
-        this.buffer = buffer;
+    public GenerateProgram (String id, BaseSensor sensor) {
+        this.buffer = sensor.buffer;
         this.id = id;
     }
 
@@ -43,7 +44,7 @@ public class GenerateProgram extends BaseProgram {
         //Check congestion
         pro.append(Condition.createIFCondition(
                 Operator.Compare(buffer.getVariableName(),CommonVariable.SENSOR_MAX_BUFFER_SIZE,">"),
-                Operator.AssignValue(CommonVariable.CONGESTION,"TRUE")));
+                Operator.AssignValue(CommonVariable.CONGESTION,"true")));
         pro.append(System.lineSeparator());
 
         //End of program

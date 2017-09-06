@@ -1,15 +1,16 @@
 package Converter.Coding.Program;
 
 import Converter.Coding.Common.*;
+import Converter.Sensor.BaseSensor;
 
 public class ProcessProgram extends BaseProgram {
 
     private Variable buffer;
     private Variable queue;
 
-    public ProcessProgram (String id, Variable buffer, Variable queue) {
-        this.buffer = buffer;
-        this.queue = queue;
+    public ProcessProgram (String id, BaseSensor sensor) {
+        this.buffer = sensor.buffer;
+        this.queue = sensor.queue;
         this.id = id;
     }
 
@@ -21,6 +22,7 @@ public class ProcessProgram extends BaseProgram {
 
         StringBuilder pro = new StringBuilder();
         pro.append(this.id).append(" ").append("{").append(System.lineSeparator());
+        pro.append(random.toString()).append(System.lineSeparator());
         //Check condition
         pro.append(Condition.createIFCondition(
                 Operator.Compare(buffer.getVariableValue(),random.getVariableValue(),">="),
@@ -39,7 +41,7 @@ public class ProcessProgram extends BaseProgram {
         //Check congestion
         pro.append(Condition.createIFCondition(
                 Operator.Compare(queue.getVariableName(),CommonVariable.SENSOR_MAX_QUEUE_SIZE,">"),
-                Operator.AssignValue(CommonVariable.CONGESTION,"TRUE")));
+                Operator.AssignValue(CommonVariable.CONGESTION,"true")));
         pro.append(System.lineSeparator());
         pro.append("}").append(System.lineSeparator())
                 .append(System.lineSeparator());

@@ -82,7 +82,7 @@ public class UnicastChannel extends BaseChannel {
 
     @Override
     public String getRecvCode() {
-        BaseProgram program = new ChannelReceiveProgram(channelRecv.id, this.buffer, GetSensorFrom().queue);
+        BaseProgram program = new ChannelReceiveProgram(channelRecv.id, this, GetSensorFrom());
         return program.getCode();
     }
 
@@ -90,7 +90,7 @@ public class UnicastChannel extends BaseChannel {
     public String getSendCode() {
         List<Variable> sensorBuffer = new ArrayList<>();
         sensorBuffer.add(GetSensorTo().buffer);
-        BaseProgram program = new ChannelSendProgram(channelSend.id, this.buffer, sensorBuffer);
+        BaseProgram program = new ChannelSendProgram(channelSend.id, this, sensorBuffer);
         return program.getCode();
     }
 
