@@ -30,7 +30,7 @@ public class ProcessProgram extends BaseProgram {
         pro.append(System.lineSeparator());
         //Else
         StringBuilder elseCommand = new StringBuilder();
-        elseCommand.append(Operator.AssignValue(random.getVariableName(),buffer.getVariableValue()));
+        elseCommand.append(Operator.AssignValue(random.getVariableName(),buffer.getVariableName()));
         elseCommand.append(System.lineSeparator());
         elseCommand.append(Operator.AssignValue(buffer.getVariableName(),"0"));
         elseCommand.append(System.lineSeparator());
