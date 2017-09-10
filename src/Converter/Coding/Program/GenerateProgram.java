@@ -42,10 +42,10 @@ public class GenerateProgram extends BaseProgram {
                 buffer.getVariableName(),
                 random.getVariableName())).append(System.lineSeparator());
         //Check congestion
-        pro.append(Condition.createIFCondition(
-                Operator.Compare(buffer.getVariableName(),CommonVariable.SENSOR_MAX_BUFFER_SIZE,">"),
-                Operator.AssignValue(CommonVariable.CONGESTION,"true")));
-        pro.append(System.lineSeparator());
+        //pro.append(Condition.createIFCondition(
+        //        Operator.Compare(buffer.getVariableName(),CommonVariable.SENSOR_MAX_BUFFER_SIZE,">"),
+        //        Operator.AssignValue(CommonVariable.CONGESTION,"true")));
+        //pro.append(System.lineSeparator());
 
         //End of program
         pro.append("}").append(System.lineSeparator())

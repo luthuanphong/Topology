@@ -24,7 +24,7 @@ public class CommonVariable {
     /**
      *
      */
-    public static final String SENSOR_MAX_PROCESSINFG_RATE = "SENSOR_MAX_PROCESSINFG_RATE";
+    public static final String SENSOR_MAX_PROCESSINFG_RATE = "SENSOR_MAX_PROCESSING_RATE";
 
     /**
      *

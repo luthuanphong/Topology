@@ -25,8 +25,8 @@ public class ProcessProgram extends BaseProgram {
         pro.append(random.toString()).append(System.lineSeparator());
         //Check condition
         pro.append(Condition.createIFCondition(
-                Operator.Compare(buffer.getVariableValue(),random.getVariableValue(),">="),
-                Operator.Minus(buffer.getVariableName(),buffer.getVariableValue(),random.getVariableValue())));
+                Operator.Compare(buffer.getVariableName(),random.getVariableName(),">="),
+                Operator.Minus(buffer.getVariableName(),buffer.getVariableName(),random.getVariableName())));
         pro.append(System.lineSeparator());
         //Else
         StringBuilder elseCommand = new StringBuilder();
@@ -39,10 +39,10 @@ public class ProcessProgram extends BaseProgram {
         pro.append(Operator.Add(queue.getVariableName(),queue.getVariableName(),random.getVariableName()));
         pro.append(System.lineSeparator());
         //Check congestion
-        pro.append(Condition.createIFCondition(
-                Operator.Compare(queue.getVariableName(),CommonVariable.SENSOR_MAX_QUEUE_SIZE,">"),
-                Operator.AssignValue(CommonVariable.CONGESTION,"true")));
-        pro.append(System.lineSeparator());
+        //pro.append(Condition.createIFCondition(
+        //        Operator.Compare(queue.getVariableName(),CommonVariable.SENSOR_MAX_QUEUE_SIZE,">"),
+        //        Operator.AssignValue(CommonVariable.CONGESTION,"true")));
+        //pro.append(System.lineSeparator());
         pro.append("}").append(System.lineSeparator())
                 .append(System.lineSeparator());
         return pro.toString();

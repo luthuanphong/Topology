@@ -27,7 +27,7 @@ public class ChannelReceiveProgram extends BaseProgram {
         pro.append(random.toString()).append(System.lineSeparator());
         //Compare random and sensor queue
         pro.append(Condition.createIFCondition(
-                Operator.Compare(sensorQueue.getVariableValue(),random.getVariableValue(),">="),
+                Operator.Compare(sensorQueue.getVariableName(),random.getVariableName(),">="),
                 Operator.Minus(sensorQueue.getVariableName(),sensorQueue.getVariableName(),random.getVariableName())));
         pro.append(System.lineSeparator());
         //else
