@@ -28,7 +28,7 @@ public class IntermediateSensor extends BaseSensor {
 
         this.InputPlace = new Place();
         this.InputPlace.id = "int_in_"+this.sensor.Id;
-        this.InputPlace.token = 1;
+        this.InputPlace.token = 0;
         this.InputPlace.label = "Int input place";
 
         this.OutputPlace = new Place();

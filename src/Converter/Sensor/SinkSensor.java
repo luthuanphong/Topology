@@ -29,7 +29,7 @@ public class SinkSensor extends BaseSensor {
 
         this.InputPlace = new Place();
         this.InputPlace.id = "sink_in_"+this.sensor.Id;
-        this.InputPlace.token = 1;
+        this.InputPlace.token = 0;
         this.InputPlace.label = "Sink input place";
 
         this.OutputPlace = new Place();
