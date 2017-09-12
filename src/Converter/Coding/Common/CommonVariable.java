@@ -34,7 +34,7 @@ public class CommonVariable {
     /**
      *
      */
-    public static final String NUMBER_OF_PACkAGE = "NUMBER_OF_PACkAGE";
+    public static final String NUMBER_OF_PACkAGE = "NUMBER_OF_PACKAGE";
 
     public static final String CONGESTION = "CONGESTION";
 }

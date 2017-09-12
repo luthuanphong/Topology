@@ -33,7 +33,7 @@ public class BroadcastConverter extends Converter {
     public BroadcastConverter (HashMap<String,Object> data) {
         this.setTopologyData(data);
         variables = new ArrayList<>();
-        variables.add(new Variable(BaseType.INT, CommonVariable.CONGESTION,"false"));
+        variables.add(new Variable(BaseType.BOOLEAN, CommonVariable.CONGESTION,"false"));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_BUFFER_SIZE, getSensorMaxBufferSize()));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_QUEUE_SIZE, getSensorMaxQueueSize()));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_PROCESSINFG_RATE, getSensorMaxProcessingRate()));
