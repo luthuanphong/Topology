@@ -67,14 +67,16 @@ public class KwsnFileReader {
                 wsn.network.processes.get(0).sensors.listSensor.get(0).MaxProcessingRate);
         data.put(TopologyConstants.SENSORS_MAX_SENDING_RATE_KEY,
                 wsn.network.processes.get(0).sensors.listSensor.get(0).MaxSendingRate);
-        data.put(TopologyConstants.CHANEL_MAX_SENDING_RATE_KEY,
+        data.put(TopologyConstants.CHANNEL_MAX_SENDING_RATE_KEY,
                 wsn.network.processes.get(0).links.listLink.get(0).MaxSendingRate);
         data.put(TopologyConstants.SENSORS_LIST_KEY,
                 wsn.network.processes.get(0).sensors.listSensor);
         data.put(TopologyConstants.CHANNEL_LIST_KEY,
                 wsn.network.processes.get(0).links.listLink);
         data.put(TopologyConstants.NUMBER_OF_PACKAGE,wsn.network.NumberOfPacket);
-
+        data.put(TopologyConstants.SENSORS_MIN_SENDING_RATE_KEY,"1");
+        data.put(TopologyConstants.SENSORS_MIN_PROCESSING_RATE_KEY,"1");
+        data.put(TopologyConstants.CHANNEL_MIN_SENDING_RATE_KEY,"1");
         HashMap<String ,String > energyRule = new HashMap<>();
         energyRule.put(EnergyConstants.PROCESSING_MESSAGE_ENERGY_CONSUMPTION_KEY , "5");
         energyRule.put(EnergyConstants.SENDING_MESSAGE_ENERGY_COMSUMPTION_KEY,"5");

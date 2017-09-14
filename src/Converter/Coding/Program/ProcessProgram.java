@@ -18,7 +18,7 @@ public class ProcessProgram extends BaseProgram {
     public String getCode() {
         Variable random = new Variable(BaseType.INT,
                 "random",
-                Function.createFunction("randomInt","1", CommonVariable.SENSOR_MAX_PROCESSINFG_RATE));
+                Function.createFunction("randomInt",CommonVariable.SENSOR_MIN_PROCESSING_RATE, CommonVariable.SENSOR_MAX_PROCESSING_RATE));
 
         StringBuilder pro = new StringBuilder();
         pro.append(this.id).append(" ").append("{").append(System.lineSeparator());

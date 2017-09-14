@@ -110,7 +110,7 @@ public abstract class Converter {
      */
     protected String getChannelMaxSendingRate () {
         return (String)
-                this.topologyData.getOrDefault(TopologyConstants.CHANEL_MAX_SENDING_RATE_KEY, null);
+                this.topologyData.getOrDefault(TopologyConstants.CHANNEL_MAX_SENDING_RATE_KEY, null);
     }
 
     /**
@@ -120,6 +120,33 @@ public abstract class Converter {
     public String getNumberOfPackage () {
         return (String)
                 this.topologyData.getOrDefault(TopologyConstants.NUMBER_OF_PACKAGE,null);
+    }
+
+    /**
+     * Get minimum sensor sending rate
+     * @return sending rate
+     */
+    public String getSensorMinSendingRate () {
+        return (String)
+                this.topologyData.getOrDefault(TopologyConstants.SENSORS_MIN_SENDING_RATE_KEY,null);
+    }
+
+    /**
+     * Get minimum sensor processing rate
+     * @return processing rate
+     */
+    public String getSensorMinProcessingRate () {
+        return (String)
+                this.topologyData.getOrDefault(TopologyConstants.SENSORS_MIN_PROCESSING_RATE_KEY,null);
+    }
+
+    /**
+     * Get minimum channel sending rate
+     * @return sending rate
+     */
+    public String getChannelMinSendingRate () {
+        return (String)
+                this.topologyData.getOrDefault(TopologyConstants.CHANNEL_MIN_SENDING_RATE_KEY,null);
     }
 
     /**

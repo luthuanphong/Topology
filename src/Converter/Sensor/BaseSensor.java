@@ -18,6 +18,16 @@ public abstract class BaseSensor {
     public Variable queue;
 
     /**
+     * Energy of sensor
+     */
+    public Variable InitiaiEnergy;
+
+    /**
+     * Energy consump after sensor working
+     */
+    public Variable EnergyConsump;
+
+    /**
      * Place input of sensor
      */
     public Place InputPlace;

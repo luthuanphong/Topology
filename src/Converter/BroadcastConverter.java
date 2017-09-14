@@ -2,7 +2,6 @@ package Converter;
 
 import Converter.Channel.BaseChannel;
 import Converter.Channel.BroadcastChannel;
-import Converter.Channel.UnicastChannel;
 import Converter.Coding.Common.BaseType;
 import Converter.Coding.Common.CommonVariable;
 import Converter.Coding.Common.Variable;
@@ -36,11 +35,14 @@ public class BroadcastConverter extends Converter {
         variables.add(new Variable(BaseType.BOOLEAN, CommonVariable.CONGESTION,"false"));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_BUFFER_SIZE, getSensorMaxBufferSize()));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_QUEUE_SIZE, getSensorMaxQueueSize()));
-        variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_PROCESSINFG_RATE, getSensorMaxProcessingRate()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_PROCESSING_RATE, getSensorMaxProcessingRate()));
         variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MAX_SENDING_RATE, getSensorMaxSendingRate()));
         variables.add(new Variable(BaseType.INT, CommonVariable.CHANNEL_MAX_BUFFER_SIZE, getChannelMaxBufferSize()));
         variables.add(new Variable(BaseType.INT, CommonVariable.CHANNEL_MAX_SENDING_RATE, getChannelMaxSendingRate()));
         variables.add(new Variable(BaseType.INT, CommonVariable.NUMBER_OF_PACkAGE, getNumberOfPackage()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MIN_SENDING_RATE, getSensorMinSendingRate()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.SENSOR_MIN_PROCESSING_RATE, getSensorMinProcessingRate()));
+        variables.add(new Variable(BaseType.INT, CommonVariable.CHANNEL_MIN_SENDING_RATE, getChannelMinSendingRate()));
 
         programs = new ArrayList<>();
         programs.add(MainProgram.getCode());

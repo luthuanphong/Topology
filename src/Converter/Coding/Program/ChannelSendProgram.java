@@ -22,7 +22,7 @@ public class ChannelSendProgram extends BaseProgram {
 
         Variable random  =  new Variable(BaseType.INT,
                 "random" ,
-                Function.createFunction("randomInt","1", CommonVariable.CHANNEL_MAX_SENDING_RATE));
+                Function.createFunction("randomInt",CommonVariable.CHANNEL_MIN_SENDING_RATE, CommonVariable.CHANNEL_MAX_SENDING_RATE));
 
         StringBuilder pro = new StringBuilder();
         pro.append(id).append(" ").append("{").append(System.lineSeparator());
