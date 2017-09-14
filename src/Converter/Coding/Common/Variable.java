@@ -58,9 +58,9 @@ public class Variable {
             case FLOAT:
                 return "float "+this.variableName+" = "+(this.variableValue.equals("0") ? this.variableValue : "1")+";";
             case STRING:
-                return "String "+this.variableName+" = "+(this.variableValue.equals("0") ? this.variableValue : "1")+";";
+                return "String "+this.variableName+" = "+this.variableValue +";";
             case BOOLEAN:
-                return "boolean "+this.variableName+" = "+(this.variableValue.equals("0") ? this.variableValue : "1")+";";
+                return "boolean "+this.variableName+" = "+this.variableValue +";";
             default:
                 return "";
         }
